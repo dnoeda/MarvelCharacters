@@ -7,6 +7,14 @@
 
 import Foundation
 
-class CharactersListInteractor {
+class CharactersListInteractor: CharactersListInteractorProtocol {
+   weak var presenter: CharactersListPresenterProtocol?
+   
+   var dataManager: CharactersListDataManagerProtocol?
+   
+   func getCharacters(completion: @escaping ([CharacterModel]?) -> Void) {
+      
+   }
+   
    
 }

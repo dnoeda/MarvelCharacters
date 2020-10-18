@@ -8,11 +8,9 @@
 import Foundation
 
 //MARK: PRESENTER -> VIEW
-protocol CharactersListViewProtocol: class {
+protocol CharactersListViewProtocol: LoadingViewProtocol {
    var presenter: CharactersListPresenterProtocol? {get set}
    
-   func showProgressHUD()
-   func dismissProgressHUD()
    func showCharactersList(charactersListViewModel: CharactersListViewModel)
 }
 
@@ -38,7 +36,7 @@ protocol CharactersListInteractorProtocol: class {
 protocol CharactersListRouterProtocol: class {
    var view: CharactersListViewProtocol? {get set}
    
-   static func buildCharactersListModule() -> CharactersListViewController
+   static func buildCharactersListModule() -> CharactersListViewProtocol
    func presentCharacterDetailModule(article: CharacterModel, from viewController: CharactersListViewProtocol)
 }
 

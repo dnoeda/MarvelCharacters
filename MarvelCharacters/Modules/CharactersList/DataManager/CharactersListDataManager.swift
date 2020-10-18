@@ -8,6 +8,11 @@
 import Foundation
 import Alamofire
 
-class CharactersListDataManager {
+class CharactersListDataManager: CharactersListDataManagerProtocol {
+   
+   func getCharacters(_ completion: @escaping (CharacterModel?) -> Void) {
+      
+   }
+   
    
 }
