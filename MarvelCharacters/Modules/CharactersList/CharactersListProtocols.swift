@@ -11,6 +11,7 @@ import Foundation
 protocol CharactersListViewProtocol: LoadingViewProtocol {
    var presenter: CharactersListPresenterProtocol? {get set}
    
+   func setTitle(title: String)
    func showCharactersList(charactersListViewModel: CharactersListViewModel)
 }
 
@@ -21,7 +22,7 @@ protocol CharactersListPresenterProtocol: class {
    var router: CharactersListRouterProtocol? {get set}
    
    func viewDidLoad()
-   func articleDidSelected(at index: Int)
+   func characterDidSelected(at index: Int)
 }
 
 //MARK: PRESENTER -> INTERACTOR

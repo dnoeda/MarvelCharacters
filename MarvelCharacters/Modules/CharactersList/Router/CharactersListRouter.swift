@@ -29,7 +29,8 @@ class CharactersListRouter: CharactersListRouterProtocol {
    }
    
    func presentCharacterDetailModule(character: CharacterModel, from viewController: CharactersListViewProtocol) {
-      
+      //TODO
+      print("Create next module")
    }
    
 }

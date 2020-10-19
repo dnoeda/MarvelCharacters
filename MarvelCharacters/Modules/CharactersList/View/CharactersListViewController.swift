@@ -11,6 +11,14 @@ import NVActivityIndicatorView
 
 class CharactersListViewController: UIViewController, CharactersListViewProtocol {
    
+   @IBOutlet weak var tableView: CharactersListTableView! {
+      didSet {
+         tableView.tableFooterView = UIView(frame: .zero)
+         tableView.separatorStyle = .none
+         tableView.presenter = presenter
+      }
+   }
+   
    static let nibIdentifier: String = "CharactersListView"
    
    var activityIndicator: NVActivityIndicatorView?
@@ -33,8 +41,14 @@ class CharactersListViewController: UIViewController, CharactersListViewProtocol
       presenter = nil
    }
    
+   func setTitle(title: String) {
+      navigationItem.title = title
+   }
+   
    func showCharactersList(charactersListViewModel: CharactersListViewModel) {
-      
+      if let charactersViewModels = charactersListViewModel.charactersViewModels {
+         tableView.charactersViewModels = charactersViewModels
+      }
    }
 }
 

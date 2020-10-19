@@ -9,9 +9,9 @@ import Foundation
 
 struct CharactersListViewModel {
    
-   let characters: [CharacterModel]
+   let charactersViewModels: [CharacterCellViewModel]?
    
-//   init(characters: [CharacterModel]?) {
-////      self.characters = characters?.compactMap({ CharacterModel(item: $0) }) ?? []
-//   }
+   init(characters: [CharacterModel]?) {
+      self.charactersViewModels = characters?.compactMap({ CharacterCellViewModel(character: $0) })
+   }
 }

@@ -12,24 +12,28 @@ public struct CharacterModel: Codable {
    public let id: Int
    public let name: String?
    public let description: String?
-   public let thumbnail: ThumbnailModel?
+   public let thumbnailUrl: String
    
    private enum CodingKeys : String, CodingKey {
-      case id, name, description, thumbnail
+      case id, name, description, thumbnailUrl = "thumbnail"
+   }
+   
+   private enum ThumbnailKeys : String, CodingKey {
+      case path, format = "extension"
    }
 }
 
+extension CharacterModel {
 
-public struct ThumbnailModel: Codable {
-   
-   public let path: String
-   public let format: String
-   
-   public func URL() -> NSURL? {
-      return NSURL(string: "\(path).\(format)")
-   }
-   
-   private enum CodingKeys : String, CodingKey {
-      case path, format = "extension"
+   public init(from decoder: Decoder) throws {
+      let values = try decoder.container(keyedBy: CodingKeys.self)
+      self.id = try values.decode(Int.self, forKey: .id)
+      self.name = try values.decode(String.self, forKey: .name)
+      self.description = try values.decode(String.self, forKey: .description)
+      
+      let thumbnail = try values.nestedContainer(keyedBy: ThumbnailKeys.self, forKey: .thumbnailUrl)
+      let path = try thumbnail.decode(String.self, forKey: .path).replacingOccurrences(of: "http", with: "https")
+      let format = try thumbnail.decode(String.self, forKey: .format)
+      self.thumbnailUrl = "\(path).\(format)"
    }
 }

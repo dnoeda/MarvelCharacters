@@ -12,6 +12,7 @@ enum State {
 }
 
 class CharactersListPresenter: CharactersListPresenterProtocol {
+   
    weak var view: CharactersListViewProtocol?
    var interactor: CharactersListInteractorProtocol?
    var router: CharactersListRouterProtocol?
@@ -25,6 +26,7 @@ class CharactersListPresenter: CharactersListPresenterProtocol {
    }
    
    func viewDidLoad() {
+      view?.setTitle(title: "Characters")
       view?.showLoading(fromView: .controllerView)
       getCharacters()
    }
@@ -37,15 +39,24 @@ class CharactersListPresenter: CharactersListPresenterProtocol {
             self?.characters = characters
             self?.state = .loaded
             
-//            let charactersListViewModel = CharactersListViewModel(characters: characters)
-//            self?.view?.showCharactersList(charactersListViewModel: CharactersListViewModel())
+            let charactersListViewModel = CharactersListViewModel(characters: characters)
+            self?.view?.showCharactersList(charactersListViewModel: charactersListViewModel)
          }
       })
    }
    
-   func articleDidSelected(at index: Int) {
-      
+   func characterAt(index: Int) -> CharacterModel? {
+      if let characters = characters {
+         return index >= 0 && index < characters.count ? characters[index] : nil
+      }
+      return nil
    }
    
+   func characterDidSelected(at index: Int) {
+      if let view = view,
+         let characterSelected = characterAt(index: index) {
+         router?.presentCharacterDetailModule(character: characterSelected, from: view)
+      }
+   }
    
 }

@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CharactersListViewController" customModule="MarvelCharacters" customModuleProvider="target">
             <connections>
+                <outlet property="tableView" destination="mTT-vy-nIF" id="EUJ-ur-brk"/>
                 <outlet property="view" destination="iN0-l3-epB" id="Kdh-fd-Sc0"/>
             </connections>
         </placeholder>
@@ -18,8 +19,21 @@
         <view contentMode="scaleToFill" id="iN0-l3-epB">
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="mTT-vy-nIF" customClass="CharactersListTableView" customModule="MarvelCharacters" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
+                </tableView>
+            </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="mTT-vy-nIF" secondAttribute="trailing" id="Ry6-Tu-esR"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="mTT-vy-nIF" secondAttribute="bottom" id="dao-ZA-9GA"/>
+                <constraint firstItem="mTT-vy-nIF" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="hdh-3S-V73"/>
+                <constraint firstItem="mTT-vy-nIF" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="thE-BO-uoo"/>
+            </constraints>
             <point key="canvasLocation" x="-152" y="96"/>
         </view>
     </objects>
