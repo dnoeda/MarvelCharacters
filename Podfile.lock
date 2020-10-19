@@ -2,6 +2,7 @@ PODS:
   - Alamofire (4.9.1)
   - AlamofireImage (3.6.0):
     - Alamofire (~> 4.9)
+  - CryptoSwift (1.3.2)
   - NVActivityIndicatorView (4.8.0):
     - NVActivityIndicatorView/Presenter (= 4.8.0)
   - NVActivityIndicatorView/Presenter (4.8.0)
@@ -9,19 +10,22 @@ PODS:
 DEPENDENCIES:
   - Alamofire
   - AlamofireImage
+  - CryptoSwift
   - NVActivityIndicatorView
 
 SPEC REPOS:
   trunk:
     - Alamofire
     - AlamofireImage
+    - CryptoSwift
     - NVActivityIndicatorView
 
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   AlamofireImage: be9963c6582d68b39e89191f64c82a7d7bf40fdd
+  CryptoSwift: 093499be1a94b0cae36e6c26b70870668cb56060
   NVActivityIndicatorView: d24b7ebcf80af5dcd994adb650e2b6c93379270f
 
-PODFILE CHECKSUM: 1ee0f0a54dd98d90b09d51099522b760f34260f0
+PODFILE CHECKSUM: 1671cf9922fe38a822f711066101f8c6ad2dec68
 
 COCOAPODS: 1.9.3

@@ -29,20 +29,20 @@ protocol CharactersListInteractorProtocol: class {
    var presenter: CharactersListPresenterProtocol? {get set}
    var dataManager: CharactersListDataManagerProtocol? {get set}
    
-   func getCharacters(completion: @escaping ([CharacterModel]?) -> Void)
+   func loadCharacters(completion: @escaping ([CharacterModel]?) -> Void)
 }
 
 //MARK: PRESENTER -> ROUTER
 protocol CharactersListRouterProtocol: class {
-   var view: CharactersListViewProtocol? {get set}
-   
    static func buildCharactersListModule() -> CharactersListViewProtocol
-   func presentCharacterDetailModule(article: CharacterModel, from viewController: CharactersListViewProtocol)
+   func presentCharacterDetailModule(character: CharacterModel, from viewController: CharactersListViewProtocol)
 }
 
 //MARK: INTERACTOR -> DATA MANAGER
 protocol CharactersListDataManagerProtocol: class {
-   func getCharacters(_ completion: @escaping (CharacterModel?) -> Void)
+   var network: CharactersListDataNetwork? {get set}
+   
+   func getCharacters(_ completion: @escaping ([CharacterModel]?) -> Void)
 }
 
 

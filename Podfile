@@ -9,6 +9,7 @@ target 'MarvelCharacters' do
   pod 'Alamofire'
   pod 'AlamofireImage'
   pod 'NVActivityIndicatorView'
+  pod 'CryptoSwift'
   
   target 'MarvelCharactersTests' do
     inherit! :search_paths

@@ -10,9 +10,12 @@ import Alamofire
 
 class CharactersListDataManager: CharactersListDataManagerProtocol {
    
-   func getCharacters(_ completion: @escaping (CharacterModel?) -> Void) {
-      
-   }
+   var network: CharactersListDataNetwork?
    
+   func getCharacters(_ completion: @escaping ([CharacterModel]?) -> Void) {
+      network?.getCharacters({ (charactersAPIModel) in
+         completion(charactersAPIModel?.characters)
+      })
+   }
    
 }
