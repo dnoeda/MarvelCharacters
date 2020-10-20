@@ -18,6 +18,7 @@ class CharactersListPresenter: CharactersListPresenterProtocol {
    var router: CharactersListRouterProtocol?
    
    private var characters: [CharacterModel]?
+   private var charactersListViewModel: CharactersListViewModel?
    private var state: State = .listening
    
    deinit {
@@ -39,8 +40,11 @@ class CharactersListPresenter: CharactersListPresenterProtocol {
             self?.characters = characters
             self?.state = .loaded
             
-            let charactersListViewModel = CharactersListViewModel(characters: characters)
-            self?.view?.showCharactersList(charactersListViewModel: charactersListViewModel)
+            self?.charactersListViewModel = CharactersListViewModel(characters: characters)
+            
+            if let charactersListViewModel = self?.charactersListViewModel {
+               self?.view?.showCharactersList(charactersListViewModel: charactersListViewModel)
+            }
          }
       })
    }

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class CharactersListRouter: CharactersListRouterProtocol {
 
@@ -29,8 +30,11 @@ class CharactersListRouter: CharactersListRouterProtocol {
    }
    
    func presentCharacterDetailModule(character: CharacterModel, from viewController: CharactersListViewProtocol) {
-      //TODO
-      print("Create next module")
+      guard let characterDetailViewController = CharacterDetailRouter.buildCharacterDetailModule(character: character) as? UIViewController,
+            let viewController = viewController as? UIViewController else {
+         return
+      }
+      viewController.navigationController?.pushViewController(characterDetailViewController, animated: true)
    }
    
 }

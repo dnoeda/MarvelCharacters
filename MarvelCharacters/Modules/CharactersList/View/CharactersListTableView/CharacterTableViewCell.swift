@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Alamofire
 import AlamofireImage
 
 class CharacterTableViewCell: UITableViewCell {
