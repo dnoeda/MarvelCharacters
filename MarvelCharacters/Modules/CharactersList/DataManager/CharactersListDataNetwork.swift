@@ -12,9 +12,9 @@ class CharactersListDataNetwork {
    let charactersEndPoint = "/characters"
    
    func getCharacters(_ completion: @escaping (CharactersAPIModel?) -> Void) {
-      if let url = URL(string: "\(MarvelAPIClientConfig.host)\(charactersEndPoint)") {
+      if let charactersUrl = URL(string: "\(MarvelAPIClientConfig.host)\(charactersEndPoint)") {
          Alamofire.request(
-            url,
+            charactersUrl,
             method: .get,
             parameters: MarvelAPIAuthentication.authParameters,
             headers: MarvelAPIClientConfig.defaultHeaders)

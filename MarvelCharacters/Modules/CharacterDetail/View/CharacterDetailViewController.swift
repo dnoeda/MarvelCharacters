@@ -27,8 +27,8 @@ class CharacterDetailViewController: UIViewController, CharacterDetailViewProtoc
    func showCharacterDetail(characterModel: CharacterViewModel) {
       nameLabel.text = characterModel.name
       descriptionLabel.text = characterModel.description
-      if let imageURL = characterModel.imageUrl, let url = URL(string: imageURL) {
-         self.thumbnailImageView?.af_setImage(withURL: url)
+      if let imageURL = characterModel.imageUrl, let characterImageUrl = URL(string: imageURL) {
+         self.thumbnailImageView?.af_setImage(withURL: characterImageUrl)
       }
    }
 

@@ -26,13 +26,13 @@ class CharacterTableViewCell: UITableViewCell {
       
       // Configure the view for the selected state
    }
-   
-   func updateWith(viewModel: CharacterCellViewModel){
+
+   func updateWith(viewModel: CharacterCellViewModel) {
       nameLabel.text = viewModel.name
       descriptionLabel.text = viewModel.description
       
-      if let imageURL = viewModel.imageURL, let url = URL(string: imageURL) {
-         self.characterImageView?.af_setImage(withURL: url)
+      if let imageURL = viewModel.imageURL, let thumbnailUrl = URL(string: imageURL) {
+         self.characterImageView?.af_setImage(withURL: thumbnailUrl)
       }
    }
 }
