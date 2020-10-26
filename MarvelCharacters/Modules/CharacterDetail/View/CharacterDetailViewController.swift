@@ -24,6 +24,11 @@ class CharacterDetailViewController: UIViewController, CharacterDetailViewProtoc
       presenter?.viewDidLoad()
    }
    
+   deinit {
+      print("\n\nDEINIT: CharacterDetailViewController is getting deinitialized\n\n")
+      presenter = nil
+   }
+   
    func showCharacterDetail(characterModel: CharacterViewModel) {
       nameLabel.text = characterModel.name
       descriptionLabel.text = characterModel.description

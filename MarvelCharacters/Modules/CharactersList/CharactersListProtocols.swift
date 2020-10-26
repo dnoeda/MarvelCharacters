@@ -29,7 +29,7 @@ protocol CharactersListPresenterProtocol: class {
 protocol CharactersListInteractorProtocol: class {
    var presenter: CharactersListPresenterProtocol? {get set}
    var dataManager: CharactersListDataManagerProtocol? {get set}
-   
+
    func loadCharacters(page: Int, completion: @escaping ([CharacterModel]?) -> Void)
 }
 

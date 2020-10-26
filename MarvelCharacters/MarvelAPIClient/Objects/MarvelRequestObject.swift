@@ -11,7 +11,7 @@ import Alamofire
 struct MarvelRequestObject {
    var method: HTTPMethod
    var endPoint: EndPoint
-   var page: Int
+   var page: Int = 1
    var limit: Int = 30
    lazy var offset: Int = {
       return limit * (page - 1)

@@ -11,7 +11,7 @@ import NVActivityIndicatorView
 
 protocol LoadingViewProtocol: class {
    var activityIndicator: NVActivityIndicatorView? {get set}
-   
+
    func showLoading(fromView: LoadingBaseView)
    func hideLoading()
 }
@@ -23,7 +23,7 @@ enum LoadingBaseView {
 }
 
 extension LoadingViewProtocol where Self: UIViewController {
-   
+
    func createLoadingView() {
       self.activityIndicator = NVActivityIndicatorView(frame: .zero)
 
@@ -39,7 +39,7 @@ extension LoadingViewProtocol where Self: UIViewController {
       DispatchQueue.main.async {
          if self.activityIndicator == nil {
             self.createLoadingView()
-            
+
             var baseView: UIView?
             switch fromView {
             case .controllerView:

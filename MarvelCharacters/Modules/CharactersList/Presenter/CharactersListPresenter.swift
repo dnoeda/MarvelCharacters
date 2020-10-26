@@ -16,27 +16,26 @@ enum State {
 //}
 
 class CharactersListPresenter: CharactersListPresenterProtocol {
-   
+
    weak var view: CharactersListViewProtocol?
    var interactor: CharactersListInteractorProtocol?
    var router: CharactersListRouterProtocol?
-   
+
    private var characters: [CharacterModel]?
-   private var charactersListViewModel: CharactersListViewModel?
    private var state: State = .listening
    private var currentPage = 1
-   
+
    deinit {
       print("\n\nDEINIT: CharactersListPresenter is getting deinitialized\n\n")
       interactor = nil
    }
-   
+
    func viewDidLoad() {
       view?.setTitle(title: "Characters")
       view?.showLoading(fromView: .controllerView)
       getCharacters()
    }
-   
+
    func getCharacters() {
       state = .loading
       interactor?.loadCharacters(page: currentPage, completion: { [weak self] (characters) in
@@ -44,28 +43,25 @@ class CharactersListPresenter: CharactersListPresenterProtocol {
             self?.view?.hideLoading()
             self?.characters = characters
             self?.state = .loaded
-            
-            self?.charactersListViewModel = CharactersListViewModel(characters: characters)
-            
-            if let charactersListViewModel = self?.charactersListViewModel {
-               self?.view?.showCharactersList(charactersListViewModel: charactersListViewModel)
-            }
+
+            let charactersListViewModel = CharactersListViewModel(characters: characters)
+            self?.view?.showCharactersList(charactersListViewModel: charactersListViewModel)
          }
       })
    }
-   
+
    func characterAt(index: Int) -> CharacterModel? {
       if let characters = characters {
          return index >= 0 && index < characters.count ? characters[index] : nil
       }
       return nil
    }
-   
+
    func characterDidSelected(at index: Int) {
       if let view = view,
          let characterSelected = characterAt(index: index) {
          router?.presentCharacterDetailModule(character: characterSelected, from: view)
       }
    }
-   
+
 }

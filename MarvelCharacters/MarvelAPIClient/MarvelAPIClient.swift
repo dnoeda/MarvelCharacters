@@ -10,7 +10,6 @@ import Alamofire
 
 enum EndPoint: String {
    case characters = "/characters"
-   case character = "/character"
 }
 
 struct MarvelError {
