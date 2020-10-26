@@ -7,14 +7,14 @@
 
 import Foundation
 
-//MARK: PRESENTER -> VIEW
+// MARK: PRESENTER -> VIEW
 protocol CharacterDetailViewProtocol: LoadingViewProtocol {
    var presenter: CharacterDetailPresenterProtocol? {get set}
 
    func showCharacterDetail(characterModel: CharacterViewModel)
 }
 
-//MARK: VIEW -> PRESENTER
+// MARK: VIEW -> PRESENTER
 protocol CharacterDetailPresenterProtocol: class {
    var view: CharacterDetailViewProtocol? {get set}
    var router: CharacterDetailRouterProtocol? {get set}
@@ -22,7 +22,7 @@ protocol CharacterDetailPresenterProtocol: class {
    func viewDidLoad()
 }
 
-//MARK: PRESENTER -> ROUTER
+// MARK: PRESENTER -> ROUTER
 protocol CharacterDetailRouterProtocol: class {
    static func buildCharacterDetailModule(character: CharacterModel) -> CharacterDetailViewProtocol
 }

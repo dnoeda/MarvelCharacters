@@ -12,7 +12,7 @@ class CharactersListTableView: UITableView {
    var presenter: CharactersListPresenterProtocol?
    
    var charactersViewModels: [CharacterCellViewModel] = [] {
-      didSet{
+      didSet {
          self.reloadData()
       }
    }

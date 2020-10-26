@@ -12,13 +12,12 @@ class CharactersListInteractor: CharactersListInteractorProtocol {
    weak var presenter: CharactersListPresenterProtocol?
    var dataManager: CharactersListDataManagerProtocol?
    
-   func loadCharacters(completion: @escaping ([CharacterModel]?) -> Void) {
-      dataManager?.getCharacters({ (characters) in
-         if let characters = characters {
+   func loadCharacters(page: Int, completion: @escaping ([CharacterModel]?) -> Void) {
+      dataManager?.getCharacters(page: page, { (charactersReponseObject) in
+         if let characters = charactersReponseObject?.results {
              completion(characters)
          }
       })
    }
-   
    
 }
