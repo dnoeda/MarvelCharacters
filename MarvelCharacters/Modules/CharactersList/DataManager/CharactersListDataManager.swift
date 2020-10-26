@@ -9,13 +9,13 @@ import Foundation
 import Alamofire
 
 class CharactersListDataManager: CharactersListDataManagerProtocol {
-   
+
    var network: CharactersListDataNetwork?
-   
-   func getCharacters(_ completion: @escaping ([CharacterModel]?) -> Void) {
-      network?.getCharacters({ (charactersAPIModel) in
-         completion(charactersAPIModel?.characters)
+
+   func getCharacters(page: Int, _ completion: @escaping (MarvelResponseObject<CharacterModel>?) -> Void) {
+      network?.getCharacters(page: page, { (charactersReponseObject) in
+         completion(charactersReponseObject)
       })
    }
-   
+
 }

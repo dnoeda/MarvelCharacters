@@ -11,7 +11,7 @@ struct MarvelAPIAuthentication {
 
    static var authParameters: [String: Any] {
         let timestamp = Int(NSDate().timeIntervalSince1970 * 1000)
-      
+
         let privateKey = MarvelAPIClientConfig.privateKey
         let publicKey = MarvelAPIClientConfig.publicKey
         let hash = MarvelHashGenerator.generateHash(timestamp: Int(timestamp),

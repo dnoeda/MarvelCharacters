@@ -8,17 +8,17 @@
 import Foundation
 
 public struct CharacterModel: Codable {
-   
+
    public let id: Int
    public let name: String?
    public let description: String?
    public let thumbnailUrl: String
    
-   private enum CodingKeys : String, CodingKey {
+   private enum CodingKeys: String, CodingKey {
       case id, name, description, thumbnailUrl = "thumbnail"
    }
    
-   private enum ThumbnailKeys : String, CodingKey {
+   private enum ThumbnailKeys: String, CodingKey {
       case path, format = "extension"
    }
 }

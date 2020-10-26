@@ -7,43 +7,41 @@
 
 import Foundation
 
-//MARK: PRESENTER -> VIEW
+//  MARK: PRESENTER -> VIEW
 protocol CharactersListViewProtocol: LoadingViewProtocol {
    var presenter: CharactersListPresenterProtocol? {get set}
-   
+
    func setTitle(title: String)
    func showCharactersList(charactersListViewModel: CharactersListViewModel)
 }
 
-//MARK: VIEW -> PRESENTER
+// MARK: VIEW -> PRESENTER
 protocol CharactersListPresenterProtocol: class {
    var view: CharactersListViewProtocol? {get set}
    var interactor: CharactersListInteractorProtocol? {get set}
    var router: CharactersListRouterProtocol? {get set}
-   
+
    func viewDidLoad()
    func characterDidSelected(at index: Int)
 }
 
-//MARK: PRESENTER -> INTERACTOR
+// MARK: PRESENTER -> INTERACTOR
 protocol CharactersListInteractorProtocol: class {
    var presenter: CharactersListPresenterProtocol? {get set}
    var dataManager: CharactersListDataManagerProtocol? {get set}
    
-   func loadCharacters(completion: @escaping ([CharacterModel]?) -> Void)
+   func loadCharacters(page: Int, completion: @escaping ([CharacterModel]?) -> Void)
 }
 
-//MARK: PRESENTER -> ROUTER
+// MARK: PRESENTER -> ROUTER
 protocol CharactersListRouterProtocol: class {
    static func buildCharactersListModule() -> CharactersListViewProtocol
    func presentCharacterDetailModule(character: CharacterModel, from viewController: CharactersListViewProtocol)
 }
 
-//MARK: INTERACTOR -> DATA MANAGER
+// MARK: INTERACTOR -> DATA MANAGER
 protocol CharactersListDataManagerProtocol: class {
    var network: CharactersListDataNetwork? {get set}
-   
-   func getCharacters(_ completion: @escaping ([CharacterModel]?) -> Void)
+
+   func getCharacters(page: Int, _ completion: @escaping (MarvelResponseObject<CharacterModel>?) -> Void)
 }
-
-

@@ -11,6 +11,10 @@ enum State {
    case listening, loading, loaded
 }
 
+//enum ViewState {
+//   case clear, loading, render
+//}
+
 class CharactersListPresenter: CharactersListPresenterProtocol {
    
    weak var view: CharactersListViewProtocol?
@@ -20,6 +24,7 @@ class CharactersListPresenter: CharactersListPresenterProtocol {
    private var characters: [CharacterModel]?
    private var charactersListViewModel: CharactersListViewModel?
    private var state: State = .listening
+   private var currentPage = 1
    
    deinit {
       print("\n\nDEINIT: CharactersListPresenter is getting deinitialized\n\n")
@@ -34,7 +39,7 @@ class CharactersListPresenter: CharactersListPresenterProtocol {
    
    func getCharacters() {
       state = .loading
-      interactor?.loadCharacters(completion: { [weak self] (characters) in
+      interactor?.loadCharacters(page: currentPage, completion: { [weak self] (characters) in
          if let characters = characters, !characters.isEmpty {
             self?.view?.hideLoading()
             self?.characters = characters
