@@ -8,16 +8,16 @@
 import Foundation
 
 class CharacterDetailInteractor: CharacterDetailInteractorProtocol {
-   
+
    weak var presenter: CharacterDetailPresenterProtocol?
    var dataManager: CharacterDetailDataManagerProtocol?
-   
-   func loadCharacter(id: Int, _ completion: @escaping (CharacterModel?) -> Void) {
-      dataManager?.getCharacter(id: id, { (characterReponseObject) in
+
+   func loadCharacter(id: Int, _ completion: @escaping (CharacterModel?, Error?) -> Void) {
+      dataManager?.getCharacter(id: id, { (characterReponseObject, error) in
          if let character = characterReponseObject?.results?.first {
-             completion(character)
+             completion(character, error)
          }
       })
    }
-   
+
 }

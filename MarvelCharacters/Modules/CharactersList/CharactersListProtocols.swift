@@ -7,8 +7,8 @@
 
 import Foundation
 
-//  MARK: PRESENTER -> VIEW
-protocol CharactersListViewProtocol: LoadingViewProtocol {
+// MARK: PRESENTER -> VIEW
+protocol CharactersListViewProtocol: LoadingViewProtocol, AlertViewProtocol {
    var presenter: CharactersListPresenterProtocol? {get set}
 
    func setTitle(title: String)
@@ -23,6 +23,7 @@ protocol CharactersListPresenterProtocol: class {
 
    func viewDidLoad()
    func characterDidSelected(at index: Int)
+   func scrollDidEndScrolling()
 }
 
 // MARK: PRESENTER -> INTERACTOR
@@ -30,7 +31,7 @@ protocol CharactersListInteractorProtocol: class {
    var presenter: CharactersListPresenterProtocol? {get set}
    var dataManager: CharactersListDataManagerProtocol? {get set}
 
-   func loadCharacters(page: Int, completion: @escaping ([CharacterModel]?) -> Void)
+   func loadCharacters(page: Int, completion: @escaping ([CharacterModel]?, Error?) -> Void)
 }
 
 // MARK: PRESENTER -> ROUTER
@@ -43,5 +44,5 @@ protocol CharactersListRouterProtocol: class {
 protocol CharactersListDataManagerProtocol: class {
    var network: CharactersListDataNetwork? {get set}
 
-   func getCharacters(page: Int, _ completion: @escaping (MarvelResponseObject<CharacterModel>?) -> Void)
+   func getCharacters(page: Int, _ completion: @escaping (MarvelResponseObject<CharacterModel>?, Error?) -> Void)
 }

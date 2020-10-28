@@ -10,20 +10,22 @@ import UIKit
 
 class CharactersListTableView: UITableView {
    var presenter: CharactersListPresenterProtocol?
-   
+
    var charactersViewModels: [CharacterCellViewModel] = [] {
       didSet {
          self.reloadData()
       }
    }
    
+   let threshold: CGFloat = 100.0
+
    required init?(coder aDecoder: NSCoder) {
        super.init(coder: aDecoder)
        self.register(UINib(nibName: "CharacterTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: CharacterTableViewCell.cellIdentifier)
        self.delegate = self
        self.dataSource = self
    }
-   
+
    func characterCellViewModelAt(index: Int) -> CharacterCellViewModel? {
       return index >= 0 && index < charactersViewModels.count ? charactersViewModels[index] : nil
    }
@@ -33,35 +35,47 @@ extension CharactersListTableView: UITableViewDataSource {
    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
       return charactersViewModels.count
    }
-   
+
    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
       guard let cell = tableView.dequeueReusableCell(withIdentifier: CharacterTableViewCell.cellIdentifier) as? CharacterTableViewCell
          else {
             return UITableViewCell()
       }
-      
+
       guard let characterCellViewModel = characterCellViewModelAt(index: indexPath.row) else {
          return UITableViewCell()
       }
-      
+
       cell.updateWith(viewModel: characterCellViewModel)
       return cell
    }
-   
+
    func numberOfSections(in tableView: UITableView) -> Int {
       return 1
    }
 }
 
-
 extension CharactersListTableView: UITableViewDelegate {
- 
+
    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
       return 250
    }
-   
+
    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
       tableView.deselectRow(at: indexPath, animated: true)
       presenter?.characterDidSelected(at: indexPath.row)
+   }
+
+}
+
+extension CharactersListTableView: UIScrollViewDelegate {
+
+   func scrollViewDidScroll(_ scrollView: UIScrollView) {
+      let contentOffset = scrollView.contentOffset.y
+      let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
+
+      if (maximumOffset - contentOffset <= threshold) {
+         presenter?.scrollDidEndScrolling()
+      }
    }
 }

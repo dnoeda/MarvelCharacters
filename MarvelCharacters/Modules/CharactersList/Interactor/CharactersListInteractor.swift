@@ -8,16 +8,16 @@
 import Foundation
 
 class CharactersListInteractor: CharactersListInteractorProtocol {
-   
+
    weak var presenter: CharactersListPresenterProtocol?
    var dataManager: CharactersListDataManagerProtocol?
-   
-   func loadCharacters(page: Int, completion: @escaping ([CharacterModel]?) -> Void) {
-      dataManager?.getCharacters(page: page, { (charactersReponseObject) in
+
+   func loadCharacters(page: Int, completion: @escaping ([CharacterModel]?, Error?) -> Void) {
+      dataManager?.getCharacters(page: page, { (charactersReponseObject, error) in
          if let characters = charactersReponseObject?.results {
-             completion(characters)
+             completion(characters, error)
          }
       })
    }
-   
+
 }

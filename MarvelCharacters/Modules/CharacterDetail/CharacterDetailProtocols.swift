@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: PRESENTER -> VIEW
-protocol CharacterDetailViewProtocol: LoadingViewProtocol {
+protocol CharacterDetailViewProtocol: LoadingViewProtocol, AlertViewProtocol {
    var presenter: CharacterDetailPresenterProtocol? {get set}
 
    func showCharacterDetail(characterModel: CharacterViewModel)
@@ -19,7 +19,7 @@ protocol CharacterDetailPresenterProtocol: class {
    var view: CharacterDetailViewProtocol? {get set}
    var router: CharacterDetailRouterProtocol? {get set}
    var interactor: CharacterDetailInteractorProtocol? {get set}
-   
+
    func viewDidLoad()
 }
 
@@ -33,12 +33,12 @@ protocol CharacterDetailInteractorProtocol: class {
    var presenter: CharacterDetailPresenterProtocol? {get set}
    var dataManager: CharacterDetailDataManagerProtocol? {get set}
 
-   func loadCharacter(id: Int, _ completion: @escaping (CharacterModel?) -> Void)
+   func loadCharacter(id: Int, _ completion: @escaping (CharacterModel?, Error?) -> Void)
 }
 
 // MARK: INTERACTOR -> DATA MANAGER
 protocol CharacterDetailDataManagerProtocol: class {
    var network: CharacterDetailDataNetwork? {get set}
 
-   func getCharacter(id: Int, _ completion: @escaping (MarvelResponseObject<CharacterModel>?) -> Void)
+   func getCharacter(id: Int, _ completion: @escaping (MarvelResponseObject<CharacterModel>?, Error?) -> Void)
 }

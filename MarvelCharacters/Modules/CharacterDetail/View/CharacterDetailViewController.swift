@@ -11,24 +11,24 @@ import NVActivityIndicatorView
 import AlamofireImage
 
 class CharacterDetailViewController: UIViewController, CharacterDetailViewProtocol {
-   
+
    @IBOutlet weak var nameLabel: UILabel!
    @IBOutlet weak var descriptionLabel: UILabel!
    @IBOutlet weak var thumbnailImageView: UIImageView!
-   
+
    var presenter: CharacterDetailPresenterProtocol?
    var activityIndicator: NVActivityIndicatorView?
-   
+
    override func viewDidLoad() {
       super.viewDidLoad()
       presenter?.viewDidLoad()
    }
-   
+
    deinit {
       print("\n\nDEINIT: CharacterDetailViewController is getting deinitialized\n\n")
       presenter = nil
    }
-   
+
    func showCharacterDetail(characterModel: CharacterViewModel) {
       nameLabel.text = characterModel.name
       descriptionLabel.text = characterModel.description

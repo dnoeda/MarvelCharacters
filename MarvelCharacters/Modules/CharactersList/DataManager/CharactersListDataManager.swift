@@ -11,9 +11,9 @@ class CharactersListDataManager: CharactersListDataManagerProtocol {
 
    var network: CharactersListDataNetwork?
 
-   func getCharacters(page: Int, _ completion: @escaping (MarvelResponseObject<CharacterModel>?) -> Void) {
-      network?.getCharacters(page: page, { (charactersReponseObject) in
-         completion(charactersReponseObject)
+   func getCharacters(page: Int, _ completion: @escaping (MarvelResponseObject<CharacterModel>?, Error?) -> Void) {
+      network?.getCharacters(page: page, { (charactersReponseObject, error)  in
+         completion(charactersReponseObject, error)
       })
    }
 

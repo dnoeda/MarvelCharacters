@@ -8,11 +8,11 @@
 import Foundation
 
 struct CharacterViewModel {
-   
+
    let name: String?
    let description: String?
    let imageUrl: String?
-   
+
    init(character: CharacterModel) {
       self.name = character.name
       self.description = character.description

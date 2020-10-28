@@ -17,7 +17,7 @@ class CharactersListRouter: CharactersListRouterProtocol {
       let router: CharactersListRouterProtocol = CharactersListRouter()
       let dataManager: CharactersListDataManagerProtocol = CharactersListDataManager()
       let network: CharactersListDataNetwork = CharactersListDataNetwork()
-      
+
       view.presenter = presenter
       presenter.view = view
       presenter.interactor = interactor
@@ -25,10 +25,10 @@ class CharactersListRouter: CharactersListRouterProtocol {
       interactor.presenter = presenter
       interactor.dataManager = dataManager
       dataManager.network = network
-      
+
       return view
    }
-   
+
    func presentCharacterDetailModule(character: CharacterModel, from viewController: CharactersListViewProtocol) {
       guard let characterDetailViewController = CharacterDetailRouter.buildCharacterDetailModule(character: character) as? UIViewController,
             let viewController = viewController as? UIViewController else {
@@ -36,5 +36,5 @@ class CharactersListRouter: CharactersListRouterProtocol {
       }
       viewController.navigationController?.pushViewController(characterDetailViewController, animated: true)
    }
-   
+
 }

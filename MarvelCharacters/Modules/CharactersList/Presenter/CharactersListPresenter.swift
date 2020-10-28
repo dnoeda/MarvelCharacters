@@ -38,10 +38,18 @@ class CharactersListPresenter: CharactersListPresenterProtocol {
 
    func getCharacters() {
       state = .loading
-      interactor?.loadCharacters(page: currentPage, completion: { [weak self] (characters) in
-         if let characters = characters, !characters.isEmpty {
-            self?.view?.hideLoading()
-            self?.characters = characters
+
+      interactor?.loadCharacters(page: currentPage, completion: { [weak self] (characters, error) in
+         self?.view?.hideLoading()
+
+         if let error = error {
+            self?.view?.showAlert(title: "Network Error", message: error.localizedDescription)
+         } else if let characters = characters {
+            if !characters.isEmpty {
+               self?.characters = characters
+            } else {
+               self?.characters?.append(contentsOf: characters)
+            }
             self?.state = .loaded
 
             let charactersListViewModel = CharactersListViewModel(characters: characters)
@@ -61,6 +69,13 @@ class CharactersListPresenter: CharactersListPresenterProtocol {
       if let view = view,
          let characterSelected = characterAt(index: index) {
          router?.presentCharacterDetailModule(character: characterSelected, from: view)
+      }
+   }
+   
+   func scrollDidEndScrolling() {
+      if state != .loading {
+         currentPage += 1
+         getCharacters()
       }
    }
 

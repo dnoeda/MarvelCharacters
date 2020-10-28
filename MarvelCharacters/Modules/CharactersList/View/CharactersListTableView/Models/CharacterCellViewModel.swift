@@ -8,11 +8,11 @@
 import Foundation
 
 struct CharacterCellViewModel {
-   
+
    let name: String
    let description: String?
    let imageURL: String?
-   
+
    init(character: CharacterModel) {
       name = character.name ?? "Unknown"
       description = character.description

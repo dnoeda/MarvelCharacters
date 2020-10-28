@@ -12,14 +12,18 @@ enum EndPoint: String {
    case characters = "/characters"
 }
 
-struct MarvelError {
-   var code: Int
-   var status: String
+enum MarvelClientError: Error, Equatable {
+   case noData
+   case noResponse
+   case badStatusCode(code: Int?)
+   case parseFailed
+   case noParameterInRequest
+   case authorization(code: Int?)
 }
 
 class MarvelAPIClient {
 
-   static func get<T: Codable>(request: inout MarvelRequestObject, _ completion: @escaping (MarvelResponseObject<T>?) -> Void) {
+   static func get<T: Codable>(request: inout MarvelRequestObject, _ completion: @escaping (Swift.Result<MarvelResponseObject<T>?, Error>) -> Void) {
       if let url = request.url {
          Alamofire.request(
             url,
@@ -29,14 +33,24 @@ class MarvelAPIClient {
             .validate()
             .responseJSON { (response) -> Void in
                guard response.result.isSuccess else {
-                  print("Error while fetching characters: \(String(describing: response.result.error))")
-                  completion(nil)
+                  if let error = response.result.error {
+                     completion(.failure(error))
+                  } else {
+                     completion(.failure(MarvelClientError.noResponse))
+                  }
                   return
                }
 
                guard let json = response.result.value as? [String: Any] else {
-                  print("Malformed data received from getArticles service")
-                  completion(nil)
+                  completion(.failure(MarvelClientError.noData))
+                  return
+               }
+               
+               guard let statusCode = response.response?.statusCode, 200...299 ~= statusCode else {
+                  if let statusCode = response.response?.statusCode, 401...409 ~= statusCode {
+                     completion(.failure(MarvelClientError.authorization(code: response.response?.statusCode)))
+                  }
+                  completion(.failure(MarvelClientError.badStatusCode(code: response.response?.statusCode)))
                   return
                }
 
@@ -44,12 +58,12 @@ class MarvelAPIClient {
                   if let data = json["data"] {
                      let jsonData = try JSONSerialization.data(withJSONObject: data, options: JSONSerialization.WritingOptions.prettyPrinted)
                      let responseObject = try JSONDecoder().decode(MarvelResponseObject<T>.self, from: jsonData)
-                     completion(responseObject)
+                     completion(.success(responseObject))
                   } else {
-                     completion(nil)
+                     completion(.failure(MarvelClientError.parseFailed))
                   }
-               } catch let error {
-                  print("Error to show", error)
+               } catch {
+                  completion(.failure(MarvelClientError.parseFailed))
                }
             }
       }

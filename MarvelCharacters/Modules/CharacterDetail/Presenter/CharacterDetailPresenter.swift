@@ -8,7 +8,7 @@
 import Foundation
 
 class CharacterDetailPresenter: CharacterDetailPresenterProtocol {
-   
+
    weak var view: CharacterDetailViewProtocol?
    var router: CharacterDetailRouterProtocol?
    var interactor: CharacterDetailInteractorProtocol?
@@ -33,11 +33,13 @@ class CharacterDetailPresenter: CharacterDetailPresenterProtocol {
 
    private func getCharacter(id: Int) {
       view?.showLoading(fromView: .controllerView)
-      interactor?.loadCharacter(id: id, { (character) in
-         self.view?.hideLoading()
-         if let character = character {
-            self.character = character
-            self.view?.showCharacterDetail(characterModel: CharacterViewModel(character: character))
+      interactor?.loadCharacter(id: id, { [weak self] (character, error)  in
+         self?.view?.hideLoading()
+         if let error = error {
+            self?.view?.showAlert(title: "Network Error", message: error.localizedDescription)
+         } else if let character = character {
+            self?.character = character
+            self?.view?.showCharacterDetail(characterModel: CharacterViewModel(character: character))
          }
       })
    }

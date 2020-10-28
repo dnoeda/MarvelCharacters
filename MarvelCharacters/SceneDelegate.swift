@@ -16,10 +16,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
       // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
       // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
       guard let windowScene = (scene as? UIWindowScene) else { return }
-      
+
       let charactersListVC = CharactersListRouter.buildCharactersListModule()
       let navigationController = UINavigationController(rootViewController: charactersListVC as! UIViewController)
-      
+
       setupNavigationBar(navigationController: navigationController)
 
       let window = UIWindow(windowScene: windowScene)
@@ -30,12 +30,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
    private func setupNavigationBar(navigationController: UINavigationController) {
       let navigationBar = navigationController.navigationBar
-      
+
       navigationBar.isTranslucent = true
       navigationBar.setBackgroundImage(UIImage(), for: .default)
       navigationBar.shadowImage = UIImage()
       navigationBar.backgroundColor = .clear
-      
+
       navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: " ", style: .plain, target: nil, action: nil)
       navigationBar.topItem?.title = " "
 
