@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class CharactersListRouter: CharactersListRouterProtocol {
+class CharactersListRouter {
 
    static func buildCharactersListModule() -> CharactersListViewProtocol {
       let view: CharactersListViewProtocol = CharactersListViewController()
@@ -28,6 +28,10 @@ class CharactersListRouter: CharactersListRouterProtocol {
 
       return view
    }
+
+}
+
+extension CharactersListRouter: CharactersListRouterProtocol {
 
    func presentCharacterDetailModule(character: CharacterModel, from viewController: CharactersListViewProtocol) {
       guard let characterDetailViewController = CharacterDetailRouter.buildCharacterDetailModule(character: character) as? UIViewController,

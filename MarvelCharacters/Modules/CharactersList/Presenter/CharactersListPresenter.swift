@@ -21,7 +21,7 @@ class CharactersListPresenter: CharactersListPresenterProtocol {
    var interactor: CharactersListInteractorProtocol?
    var router: CharactersListRouterProtocol?
 
-   private var characters: [CharacterModel]?
+   var characters: [CharacterModel]?
    private var state: State = .listening
    private var currentPage = 1
 
@@ -71,7 +71,7 @@ class CharactersListPresenter: CharactersListPresenterProtocol {
          router?.presentCharacterDetailModule(character: characterSelected, from: view)
       }
    }
-   
+
    func scrollDidEndScrolling() {
       if state != .loading {
          currentPage += 1
