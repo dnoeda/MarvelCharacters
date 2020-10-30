@@ -11,12 +11,36 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
    var window: UIWindow?
 
-
    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
       // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
       // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
       // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-      guard let _ = (scene as? UIWindowScene) else { return }
+      guard let windowScene = (scene as? UIWindowScene) else { return }
+
+      let charactersListVC = CharactersListRouter.buildCharactersListModule()
+      let navigationController = UINavigationController(rootViewController: charactersListVC as! UIViewController)
+
+      setupNavigationBar(navigationController: navigationController)
+
+      let window = UIWindow(windowScene: windowScene)
+      window.rootViewController = navigationController
+      self.window = window
+      window.makeKeyAndVisible()
+   }
+
+   private func setupNavigationBar(navigationController: UINavigationController) {
+      let navigationBar = navigationController.navigationBar
+
+      navigationBar.isTranslucent = true
+      navigationBar.setBackgroundImage(UIImage(), for: .default)
+      navigationBar.shadowImage = UIImage()
+      navigationBar.backgroundColor = .clear
+
+      navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: " ", style: .plain, target: nil, action: nil)
+      navigationBar.topItem?.title = " "
+
+      navigationController.navigationBar.tintColor = UIColor.black
+      navigationController.setNavigationBarHidden(false, animated: true)
    }
 
    func sceneDidDisconnect(_ scene: UIScene) {
@@ -47,6 +71,4 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
       // to restore the scene back to its current state.
    }
 
-
 }
-
