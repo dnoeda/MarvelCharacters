@@ -23,7 +23,12 @@ enum MarvelClientError: Error, Equatable {
 
 class MarvelAPIClient {
 
-   static func get<T: Codable>(request: inout MarvelRequestObject, _ completion: @escaping (Swift.Result<MarvelResponseObject<T>?, Error>) -> Void) {
+   private init() { }
+
+   // MARK: Shared Instance
+   static let shared = MarvelAPIClient()
+
+   func get<T: Codable>(request: inout MarvelRequestObject, _ completion: @escaping (Swift.Result<MarvelResponseObject<T>?, Error>) -> Void) {
       if let url = request.url {
          Alamofire.request(
             url,

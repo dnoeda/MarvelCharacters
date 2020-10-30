@@ -39,7 +39,7 @@ class CharactersListPresenterTest: XCTestCase {
       super.tearDown()
    }
 
-   func givenCharactersSet() throws -> [CharacterModel] {
+   func givenCharacters() throws -> [CharacterModel] {
       // given
       let data = try Data.fromJSON(fileName: "Characters")
       let decoder = JSONDecoder()
@@ -48,10 +48,26 @@ class CharactersListPresenterTest: XCTestCase {
       return characters
    }
 
-   func test_presenterGetCharacters_givenValidResponseFromInteractor() {
+   func givenCharactersSet() {
+      let characters = try! givenCharacters()
+      sut.characters = characters
+   }
+
+   func test_whenCharacterSelected_characterIsSelectedCorrectly() {
+      // given
+      givenCharactersSet()
+
+      //when
+      let characterSelected = sut.characterAt(index: 1)
+
+      //then
+      XCTAssertEqual(sut.characters[1], characterSelected)
+   }
+
+   func test_whenValidInteractorResponse_charactersAreSet() {
       let testExpectation = expectation(description: #function)
 
-      let characters = try! givenCharactersSet()
+      let characters = try! givenCharacters()
       interactor?.characters = characters
 
       let callback = { (_ characters: [CharacterModel]?, error: Error?) -> Void in
@@ -66,7 +82,7 @@ class CharactersListPresenterTest: XCTestCase {
       waitForExpectations(timeout: 1.0, handler: nil)
    }
 
-   func test_presenterGetError_givenNoValidCharacterResponse() {
+   func test_whenNoValidInteractorResponse_errorIsSet() {
       let testExpectation = expectation(description: #function)
 
       let callback = { (_ characters: [CharacterModel]?, error: Error?) -> Void in
@@ -75,15 +91,16 @@ class CharactersListPresenterTest: XCTestCase {
          testExpectation.fulfill()
       }
 
+      //when
       interactor?.loadCharacters(page: 1, completion: callback)
 
+      //then
       waitForExpectations(timeout: 1.0, handler: nil)
    }
 
    func test_whenCharacterSelected_routerShowsCharacterDetailScreen() {
       //given
-      let characters = try! givenCharactersSet()
-      sut.characters = characters
+      givenCharactersSet()
 
       //when
       sut.characterDidSelected(at: 1)
