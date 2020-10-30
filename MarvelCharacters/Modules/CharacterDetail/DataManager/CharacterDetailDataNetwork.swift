@@ -13,7 +13,7 @@ class CharacterDetailDataNetwork {
       var characterRequest = MarvelRequestObject(method: .get, endPoint: .characters, limit: 1)
       characterRequest.url?.appendPathComponent(String(id))
 
-      MarvelAPIClient.get(request: &characterRequest) { (result: Swift.Result<MarvelResponseObject<CharacterModel>?, Error>) in
+      MarvelAPIClient.shared.get(request: &characterRequest) { (result: Swift.Result<MarvelResponseObject<CharacterModel>?, Error>) in
          switch result {
          case .success(let characterAPIModel):
             completion(characterAPIModel, nil)
@@ -22,5 +22,5 @@ class CharacterDetailDataNetwork {
          }
       }
    }
-   
+
 }

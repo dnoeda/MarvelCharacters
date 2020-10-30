@@ -12,7 +12,7 @@ class CharactersListDataNetwork {
    func getCharacters(page: Int, _ completion: @escaping (MarvelResponseObject<CharacterModel>?, Error?) -> Void) {
       var charactersRequest = MarvelRequestObject(method: .get, endPoint: .characters, page: page)
 
-      MarvelAPIClient.get(request: &charactersRequest) { (result: Swift.Result<MarvelResponseObject<CharacterModel>?, Error>) in
+      MarvelAPIClient.shared.get(request: &charactersRequest) { (result: Swift.Result<MarvelResponseObject<CharacterModel>?, Error>) in
          switch result {
          case .success(let charactersAPIModel):
             completion(charactersAPIModel, nil)

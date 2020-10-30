@@ -21,7 +21,7 @@ class CharactersListPresenter: CharactersListPresenterProtocol {
    var interactor: CharactersListInteractorProtocol?
    var router: CharactersListRouterProtocol?
 
-   private var characters: [CharacterModel]?
+   var characters = [CharacterModel]()
    private var state: State = .listening
    private var currentPage = 1
 
@@ -45,11 +45,7 @@ class CharactersListPresenter: CharactersListPresenterProtocol {
          if let error = error {
             self?.view?.showAlert(title: "Network Error", message: error.localizedDescription)
          } else if let characters = characters {
-            if !characters.isEmpty {
-               self?.characters = characters
-            } else {
-               self?.characters?.append(contentsOf: characters)
-            }
+            self?.characters.append(contentsOf: characters)
             self?.state = .loaded
 
             let charactersListViewModel = CharactersListViewModel(characters: characters)
@@ -59,10 +55,7 @@ class CharactersListPresenter: CharactersListPresenterProtocol {
    }
 
    func characterAt(index: Int) -> CharacterModel? {
-      if let characters = characters {
-         return index >= 0 && index < characters.count ? characters[index] : nil
-      }
-      return nil
+      return index >= 0 && index < characters.count ? characters[index] : nil
    }
 
    func characterDidSelected(at index: Int) {
@@ -71,7 +64,7 @@ class CharactersListPresenter: CharactersListPresenterProtocol {
          router?.presentCharacterDetailModule(character: characterSelected, from: view)
       }
    }
-   
+
    func scrollDidEndScrolling() {
       if state != .loading {
          currentPage += 1

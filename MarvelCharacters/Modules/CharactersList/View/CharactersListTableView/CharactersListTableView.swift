@@ -16,7 +16,7 @@ class CharactersListTableView: UITableView {
          self.reloadData()
       }
    }
-   
+
    let threshold: CGFloat = 100.0
 
    required init?(coder aDecoder: NSCoder) {
@@ -74,7 +74,7 @@ extension CharactersListTableView: UIScrollViewDelegate {
       let contentOffset = scrollView.contentOffset.y
       let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
 
-      if (maximumOffset - contentOffset <= threshold) {
+      if maximumOffset - contentOffset <= threshold {
          presenter?.scrollDidEndScrolling()
       }
    }

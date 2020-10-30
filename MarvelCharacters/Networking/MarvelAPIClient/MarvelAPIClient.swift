@@ -23,7 +23,12 @@ enum MarvelClientError: Error, Equatable {
 
 class MarvelAPIClient {
 
-   static func get<T: Codable>(request: inout MarvelRequestObject, _ completion: @escaping (Swift.Result<MarvelResponseObject<T>?, Error>) -> Void) {
+   private init() { }
+
+   // MARK: Shared Instance
+   static let shared = MarvelAPIClient()
+
+   func get<T: Codable>(request: inout MarvelRequestObject, _ completion: @escaping (Swift.Result<MarvelResponseObject<T>?, Error>) -> Void) {
       if let url = request.url {
          Alamofire.request(
             url,
@@ -45,7 +50,7 @@ class MarvelAPIClient {
                   completion(.failure(MarvelClientError.noData))
                   return
                }
-               
+
                guard let statusCode = response.response?.statusCode, 200...299 ~= statusCode else {
                   if let statusCode = response.response?.statusCode, 401...409 ~= statusCode {
                      completion(.failure(MarvelClientError.authorization(code: response.response?.statusCode)))

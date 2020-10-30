@@ -36,7 +36,7 @@ protocol CharactersListInteractorProtocol: class {
 
 // MARK: PRESENTER -> ROUTER
 protocol CharactersListRouterProtocol: class {
-   static func buildCharactersListModule() -> CharactersListViewProtocol
+//   static func buildCharactersListModule() -> CharactersListViewProtocol
    func presentCharacterDetailModule(character: CharacterModel, from viewController: CharactersListViewProtocol)
 }
 
